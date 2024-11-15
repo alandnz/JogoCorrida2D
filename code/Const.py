@@ -6,7 +6,8 @@ C_YELLOW = (255, 255, 0)
 C_ORANGE = (255, 128, 50)
 
 # MENU
-MENU_OPTION = ('SINGLE PLAYER',
+MENU_OPTION = ('SINGLE PLAYER - RED',
+               'SINGLE PLAYER - YELLOW',
                'SCORE',
                'EXIT')
 
