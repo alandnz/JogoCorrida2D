@@ -3,6 +3,8 @@ import random
 import time
 
 from code.Const import WIN_WIDTH, WIN_HEIGHT, C_YELLOW, C_ROAD_COLOR, C_WHITE, MENU_OPTION
+from code.Entity import Entity
+from code.EntityFactory import EntityFactory
 
 
 class Level:
@@ -10,6 +12,8 @@ class Level:
         self.window = window
         self.name = name
         self.menu_return = menu_return  # Escolha do menu
+        self.entity_list: list[Entity] = []
+        self.entity_list.extend(EntityFactory.get_entity('Road'))
 
     def run(self):
         # Sons
@@ -47,9 +51,9 @@ class Level:
         font = pygame.font.Font(None, 36)
 
         # Função para desenhar a estrada
-        def draw_road():
+        '''def draw_road():
             self.window.fill(C_ROAD_COLOR)
-            pygame.draw.rect(self.window, C_YELLOW, (WIN_WIDTH // 2 - 5, 0, 10, WIN_HEIGHT))
+            pygame.draw.rect(self.window, C_YELLOW, (WIN_WIDTH // 2 - 5, 0, 10, WIN_HEIGHT))'''
 
         # Função para gerar obstáculos
         def generate_obstacle():
@@ -72,7 +76,12 @@ class Level:
         # Loop principal do jogo
         while running:
             clock.tick(30)  # Controla a taxa de quadros
-            draw_road()
+            #draw_road()
+            for ent in self.entity_list:
+                self.window.blit(source=ent.surf, dest=ent.rect)
+                ent.move()
+            pygame.display.flip()
+
 
             # Eventos do Pygame
             for event in pygame.event.get():
