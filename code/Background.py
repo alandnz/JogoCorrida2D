@@ -1,16 +1,23 @@
-from code.Const import WIN_HEIGHT, WIN_WIDTH
+import pygame
+from code.Const import WIN_WIDTH, WIN_HEIGHT
 from code.Entity import Entity
 
 
 class Background(Entity):
     def __init__(self, name: str, position: tuple):
         super().__init__(name, position)
-        self.offset = position[0]  # Definir o deslocamento inicial horizontal
+        # Ajusta a imagem para cobrir a tela
+        self.surf = pygame.transform.scale(self.surf, (WIN_WIDTH, WIN_HEIGHT))
 
     def move(self):
-        self.rect.centery += 5  # Move a imagem para baixo
+        """Move o background para baixo e reposiciona no topo quando necessário."""
+        self.rect.centery += 7  # Velocidade do movimento
 
-        # Quando a imagem ultrapassar o fundo (passar para baixo da tela), reposiciona no topo
+        # Reposicionar no topo ao sair da tela
         if self.rect.top >= WIN_HEIGHT:
-            self.rect.bottom = 0  # Move para o topo
-            self.rect.centerx = self.offset  # Mantém a posição horizontal do "parallax"
+            self.reset_position()
+
+    def reset_position(self):
+        """Reposiciona o background no topo."""
+        self.rect.bottom = 0
+
