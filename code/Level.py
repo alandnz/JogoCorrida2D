@@ -28,9 +28,13 @@ class Level:
         if self.menu_return == MENU_OPTION[0]:  # Red car
             car_image = pygame.image.load('./asset/CarRed.png').convert_alpha()
             player_speed = 10
+            pygame.mixer_music.load('./asset/Level1.wav')
+            pygame.mixer_music.play(-1)
         elif self.menu_return == MENU_OPTION[1]:  # Yellow car
             car_image = pygame.image.load('./asset/CarYellow.png').convert_alpha()
             player_speed = 15
+            pygame.mixer_music.load('./asset/Level2.wav')
+            pygame.mixer_music.play(-1)
         car_image = pygame.transform.scale(car_image, (50, 100))
         return car_image, player_speed
 

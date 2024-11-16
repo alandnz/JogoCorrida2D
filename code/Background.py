@@ -20,4 +20,3 @@ class Background(Entity):
     def reset_position(self):
         """Reposiciona o background no topo."""
         self.rect.bottom = 0
-
