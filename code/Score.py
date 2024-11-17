@@ -62,7 +62,6 @@ class Score:
             self.score_text(15, f'{name}      {score:03}     {date}', C_YELLOW,
                             SCORE_POS[list_score.index(player_score)])
 
-
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -73,12 +72,12 @@ class Score:
                         return
             pygame.display.flip()
 
-
     def score_text(self, text_size: int, text: str, text_color: tuple, text_center_pos: tuple):
         text_font: Font = pygame.font.SysFont(name="Lucida Sans Typewriter", size=text_size)
         text_surf: Surface = text_font.render(text, True, text_color).convert_alpha()
         text_rect: Rect = text_surf.get_rect(center=text_center_pos)
         self.window.blit(source=text_surf, dest=text_rect)
+
 
 def get_formatted_date():
     current_datetime = datetime.now()

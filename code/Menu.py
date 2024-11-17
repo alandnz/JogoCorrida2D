@@ -14,7 +14,7 @@ class Menu:
     def run(self):
         menu_option = 0
         pygame.mixer_music.load('./asset/MenuMusic.wav')
-        pygame.mixer_music.set_volume(0.7) # Reduz o volume
+        pygame.mixer_music.set_volume(0.7)  # Reduz o volume
         pygame.mixer_music.play(-1)
         while True:
             # Desenha as imagens
@@ -45,10 +45,8 @@ class Menu:
                             menu_option += 1
                         else:
                             menu_option = 0
-                    if event.key == pygame.K_RETURN:  #Enter
+                    if event.key == pygame.K_RETURN:  # Enter
                         return MENU_OPTION[menu_option]
-
-
 
     def menu_text(self, text_size: int, text: str, text_color: tuple, text_center_pos: tuple):
         text_font: Font = pygame.font.SysFont(name="Lucida Sans Typewriter", size=text_size)

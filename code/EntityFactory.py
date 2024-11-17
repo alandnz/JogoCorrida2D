@@ -17,4 +17,3 @@ class EntityFactory:
                 return Car(kwargs['menu_return'], position)
             case 'Obstacle':
                 return Obstacle(kwargs['image'], position)
-

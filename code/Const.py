@@ -31,5 +31,4 @@ SCORE_POS = {'Title': (WIN_WIDTH / 2, 40),
              8: (WIN_WIDTH / 2, 270),
              9: (WIN_WIDTH / 2, 290),
              }
-
 SCORE_MAX = 10

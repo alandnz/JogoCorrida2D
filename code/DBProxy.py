@@ -30,5 +30,3 @@ class DBProxy:
         self.connection.execute('DELETE FROM dados')  # Remove todos os registros
         self.connection.commit()
         print("Banco de dados zerado com sucesso!")
-
-
