@@ -59,7 +59,6 @@ class Level:
             for obstacle in self.obstacles:
                 if self.player.rect.colliderect(obstacle.rect):
                     # Verifica o carro selecionado e carrega a imagem correspondente
-                    print(f"menu_return: {self.menu_return}")
                     if self.menu_return == "SINGLE PLAYER - RED":
                         damaged_image = pygame.image.load('./asset/CarRedDam.png').convert_alpha()
                     else:
@@ -86,8 +85,9 @@ class Level:
 
                     # Aguarda 2 segundos antes de encerrar
                     pygame.time.wait(2000)
-                    pygame.quit()
-                    exit()
+                    return 'Menu'
+                    #pygame.quit()
+                    #exit()
 
     def run(self):
         clock = pygame.time.Clock()
@@ -104,7 +104,9 @@ class Level:
                 self.generate_obstacle()
 
             self.update_obstacles()
-            self.detect_collisions()
+
+            if self.detect_collisions() == 'Menu':
+                return 'Menu'
 
             for ent in self.entity_list:
                 self.window.blit(ent.surf, ent.rect)
