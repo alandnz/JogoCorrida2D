@@ -3,9 +3,8 @@ import random
 from code.Const import WIN_WIDTH, WIN_HEIGHT, C_WHITE
 from code.EntityFactory import EntityFactory
 
-
 class Level:
-    def __init__(self, window, name, menu_return):
+    def __init__(self, window, name, menu_return, score_menu):
         self.window = window
         self.name = name
         self.menu_return = menu_return
@@ -16,6 +15,7 @@ class Level:
         self.obstacle_speed = 7
         self.score = 0
         self.font = pygame.font.Font(None, 36)
+        self.score_menu = score_menu  # Menu de Score
 
     @staticmethod
     def load_obstacles():
@@ -85,7 +85,11 @@ class Level:
 
                     # Aguarda 2 segundos antes de encerrar
                     pygame.time.wait(2000)
-                    return 'Menu'
+
+                    self.score_menu.save_score(self.score)
+                    return 'MENU'
+
+                    # return 'Menu'
                     #pygame.quit()
                     #exit()
 
@@ -105,8 +109,21 @@ class Level:
 
             self.update_obstacles()
 
-            if self.detect_collisions() == 'Menu':
-                return 'Menu'
+            if self.detect_collisions() == 'MENU':
+                return 'MENU'
+
+            # Verifica se a pontuação atingiu o limite e chama o menu de Score
+            if self.score >= 100:  # Ajuste o limite conforme necessário
+                # Carrega a imagem "YouWin.png"
+                you_win_image = pygame.image.load('./asset/YouWin.png').convert_alpha()
+                you_win_image = pygame.transform.scale(you_win_image, (WIN_WIDTH / 2, WIN_HEIGHT / 4))
+
+                self.window.blit(you_win_image, (128, 64))
+                pygame.display.flip()
+                pygame.time.wait(2000)
+
+                self.score_menu.save_score(self.score)
+                return 'MENU'
 
             for ent in self.entity_list:
                 self.window.blit(ent.surf, ent.rect)
@@ -114,6 +131,7 @@ class Level:
 
             for obstacle in self.obstacles:
                 self.window.blit(obstacle.surf, obstacle.rect)
+
 
             self.window.blit(self.player.surf, self.player.rect)
             self.draw_score()

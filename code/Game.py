@@ -1,8 +1,10 @@
 import pygame
 
 from code.Const import WIN_WIDTH, WIN_HEIGHT, MENU_OPTION
+from code.DBProxy import DBProxy
 from code.Level import Level
 from code.Menu import Menu
+from code.Score import Score
 
 
 class Game:
@@ -14,17 +16,27 @@ class Game:
         while True:
             menu = Menu(self.window)
             menu_return = menu.run()
+            score = Score(self.window)
 
             if menu_return in [MENU_OPTION[0], MENU_OPTION[1]]:
-                level = Level(self.window, 'Level', menu_return)
+                level = Level(self.window, 'Level', menu_return, score)
                 level_return = level.run()
 
                 # Se retornar 'MENU' após a colisão, recarrega o Menu
                 if level_return == 'MENU':
                     continue
 
+            elif menu_return == MENU_OPTION[2]:
+                score.show_score()
+
             elif menu_return == MENU_OPTION[3]:
                 pygame.quit()
                 quit()
+
+            elif menu_return == MENU_OPTION[4]:  # "RESET DATABASE"
+                db_proxy = DBProxy('DBScore')
+                db_proxy.reset()
+                db_proxy.close()
+                print("Banco de dados resetado!")
             else:
                 pass
