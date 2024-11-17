@@ -56,10 +56,38 @@ class Level:
 
     def detect_collisions(self):
         for obstacle in self.obstacles:
-            if self.player.rect.colliderect(obstacle.rect):
-                pygame.time.wait(1000)
-                pygame.quit()
-                exit()
+            for obstacle in self.obstacles:
+                if self.player.rect.colliderect(obstacle.rect):
+                    # Verifica o carro selecionado e carrega a imagem correspondente
+                    print(f"menu_return: {self.menu_return}")
+                    if self.menu_return == "SINGLE PLAYER - RED":
+                        damaged_image = pygame.image.load('./asset/CarRedDam.png').convert_alpha()
+                    else:
+                        damaged_image = pygame.image.load('./asset/CarYellowDam.png').convert_alpha()
+
+                    # Atualiza a imagem do jogador para a versão danificada
+                    self.player.surf = pygame.transform.scale(damaged_image, self.player.surf.get_size())
+
+                    # Redesenha a tela com o carro danificado
+                    for ent in self.entity_list:
+                        self.window.blit(ent.surf, ent.rect)
+                    for obstacle in self.obstacles:
+                        self.window.blit(obstacle.surf, obstacle.rect)
+                    self.window.blit(self.player.surf, self.player.rect)
+                    self.draw_score()
+
+                    # Carrega a imagem "YouLose.png"
+                    you_lose_image = pygame.image.load('./asset/YouLose.png').convert_alpha()
+                    you_lose_image = pygame.transform.scale(you_lose_image, (WIN_WIDTH / 2, WIN_HEIGHT / 4))
+
+                    # Desenha a imagem "YouLose.png" na tela
+                    self.window.blit(you_lose_image, (128, 64))
+                    pygame.display.flip()
+
+                    # Aguarda 2 segundos antes de encerrar
+                    pygame.time.wait(2000)
+                    pygame.quit()
+                    exit()
 
     def run(self):
         clock = pygame.time.Clock()
