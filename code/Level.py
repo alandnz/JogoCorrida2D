@@ -1,7 +1,8 @@
 import pygame
 import random
-from code.Const import WIN_WIDTH, WIN_HEIGHT, C_WHITE
+from code.Const import WIN_WIDTH, WIN_HEIGHT, C_WHITE, SCORE_MAX
 from code.EntityFactory import EntityFactory
+
 
 class Level:
     def __init__(self, window, name, menu_return, score_menu):
@@ -90,8 +91,8 @@ class Level:
                     return 'MENU'
 
                     # return 'Menu'
-                    #pygame.quit()
-                    #exit()
+                    # pygame.quit()
+                    # exit()
 
     def run(self):
         clock = pygame.time.Clock()
@@ -113,7 +114,7 @@ class Level:
                 return 'MENU'
 
             # Verifica se a pontuação atingiu o limite e chama o menu de Score
-            if self.score >= 100:  # Ajuste o limite conforme necessário
+            if self.score >= SCORE_MAX:
                 # Carrega a imagem "YouWin.png"
                 you_win_image = pygame.image.load('./asset/YouWin.png').convert_alpha()
                 you_win_image = pygame.transform.scale(you_win_image, (WIN_WIDTH / 2, WIN_HEIGHT / 4))
@@ -131,7 +132,6 @@ class Level:
 
             for obstacle in self.obstacles:
                 self.window.blit(obstacle.surf, obstacle.rect)
-
 
             self.window.blit(self.player.surf, self.player.rect)
             self.draw_score()

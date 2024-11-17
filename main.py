@@ -9,4 +9,3 @@ db_proxy.close()'''
 # Inicia o jogo
 game = Game()
 game.run()
-
