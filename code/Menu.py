@@ -19,7 +19,7 @@ class Menu:
         while True:
             # Desenha as imagens
             self.window.blit(source=self.surf, dest=self.rect)
-            self.menu_text(50, "Car", C_ORANGE, ((WIN_WIDTH / 2), 70))
+            self.menu_text(50, "Savanna", C_ORANGE, ((WIN_WIDTH / 2), 70))
             self.menu_text(50, "Racing", C_ORANGE, ((WIN_WIDTH / 2), 120))
 
             for i in range(len(MENU_OPTION)):
