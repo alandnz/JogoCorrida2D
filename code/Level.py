@@ -24,7 +24,7 @@ class Level:
             ('./asset/Tree01.png', (100, 125)),
             ('./asset/Tree02.png', (75, 100)),
             ('./asset/Tree03.png', (50, 75)),
-            ('./asset/Tree04.png', (50, 125)),
+            ('./asset/Tree04.png', (25, 50)),
         ]
         return [
             pygame.transform.scale(pygame.image.load(path).convert_alpha(), size)
@@ -32,7 +32,7 @@ class Level:
         ]
 
     def generate_obstacle(self):
-        obstacle_x = random.randint(0, WIN_WIDTH - 50)
+        obstacle_x = random.randint(100, WIN_WIDTH - 100)
         obstacle_y = -100
         image = random.choice(self.obstacle_images)
         obstacle = EntityFactory.get_entity('Obstacle', position=(obstacle_x, obstacle_y), image=image)
@@ -57,42 +57,36 @@ class Level:
 
     def detect_collisions(self):
         for obstacle in self.obstacles:
-            for obstacle in self.obstacles:
-                if self.player.rect.colliderect(obstacle.rect):
-                    # Verifica o carro selecionado e carrega a imagem correspondente
-                    if self.menu_return == "SINGLE PLAYER - RED":
-                        damaged_image = pygame.image.load('./asset/CarRedDam.png').convert_alpha()
-                    else:
-                        damaged_image = pygame.image.load('./asset/CarYellowDam.png').convert_alpha()
+            if self.player.rect.colliderect(obstacle.rect):
+                # Verifica o carro selecionado e carrega a imagem correspondente
+                if self.menu_return == "SINGLE PLAYER - RED":
+                    damaged_image = pygame.image.load('./asset/CarRedDam.png').convert_alpha()
+                else:
+                    damaged_image = pygame.image.load('./asset/CarYellowDam.png').convert_alpha()
 
-                    # Atualiza a imagem do jogador para a versão danificada
-                    self.player.surf = pygame.transform.scale(damaged_image, self.player.surf.get_size())
+                # Atualiza a imagem do jogador para a versão danificada
+                self.player.surf = pygame.transform.scale(damaged_image, self.player.surf.get_size())
 
-                    # Redesenha a tela com o carro danificado
-                    for ent in self.entity_list:
-                        self.window.blit(ent.surf, ent.rect)
-                    for obstacle in self.obstacles:
-                        self.window.blit(obstacle.surf, obstacle.rect)
-                    self.window.blit(self.player.surf, self.player.rect)
-                    self.draw_score()
+                # Redesenha a tela com o carro danificado
+                for ent in self.entity_list:
+                    self.window.blit(ent.surf, ent.rect)
+                for obstacle in self.obstacles:
+                    self.window.blit(obstacle.surf, obstacle.rect)
+                self.window.blit(self.player.surf, self.player.rect)
+                self.draw_score()
 
-                    # Carrega a imagem "YouLose.png"
-                    you_lose_image = pygame.image.load('./asset/YouLose.png').convert_alpha()
-                    you_lose_image = pygame.transform.scale(you_lose_image, (WIN_WIDTH / 2, WIN_HEIGHT / 4))
+                you_lose_image = pygame.image.load('./asset/YouLose.png').convert_alpha()
+                you_lose_image = pygame.transform.scale(you_lose_image, (WIN_WIDTH / 2, WIN_HEIGHT / 4))
 
-                    # Desenha a imagem "YouLose.png" na tela
-                    self.window.blit(you_lose_image, (128, 64))
-                    pygame.display.flip()
+                # Desenha a imagem "YouLose.png" na tela
+                self.window.blit(you_lose_image, (128, 64))
+                pygame.display.flip()
 
-                    # Aguarda 2 segundos antes de encerrar
-                    pygame.time.wait(2000)
+                # Aguarda 2 segundos antes de encerrar
+                pygame.time.wait(2000)
 
-                    self.score_menu.save_score(self.score)
-                    return 'MENU'
-
-                    # return 'Menu'
-                    # pygame.quit()
-                    # exit()
+                self.score_menu.save_score(self.score)
+                return 'MENU'
 
     def run(self):
         clock = pygame.time.Clock()
@@ -115,12 +109,13 @@ class Level:
 
             # Verifica se a pontuação atingiu o limite e chama o menu de Score
             if self.score >= SCORE_MAX:
-                # Carrega a imagem "YouWin.png"
                 you_win_image = pygame.image.load('./asset/YouWin.png').convert_alpha()
                 you_win_image = pygame.transform.scale(you_win_image, (WIN_WIDTH / 2, WIN_HEIGHT / 4))
 
+                # Desenha a imagem "YouWin.png" na tela
                 self.window.blit(you_win_image, (128, 64))
                 pygame.display.flip()
+                
                 pygame.time.wait(2000)
 
                 self.score_menu.save_score(self.score)

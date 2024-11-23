@@ -1,7 +1,5 @@
 import pygame
-
 from code.Const import WIN_WIDTH, WIN_HEIGHT, MENU_OPTION
-from code.DBProxy import DBProxy
 from code.Level import Level
 from code.Menu import Menu
 from code.Score import Score
@@ -33,10 +31,5 @@ class Game:
                 pygame.quit()
                 quit()
 
-            elif menu_return == MENU_OPTION[4]:  # "RESET DATABASE"
-                db_proxy = DBProxy('DBScore')
-                db_proxy.reset()
-                db_proxy.close()
-                print("Banco de dados resetado!")
             else:
                 pass

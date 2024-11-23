@@ -25,8 +25,8 @@ class DBProxy:
     def close(self):
         return self.connection.close()
 
-    # Função para deletar o DB / Necessário alterar em Main.py
+    # Função para deletar o DB / Necessário alterar o trecho comentado em Main.py
     def reset(self):
         self.connection.execute('DELETE FROM dados')  # Remove todos os registros
         self.connection.commit()
-        print("Banco de dados zerado com sucesso!")
+        print("Score apagado!")

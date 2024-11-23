@@ -1,9 +1,7 @@
-from datetime import datetime
-
 import pygame
+from datetime import datetime
 from pygame import Surface, Rect, KEYDOWN
 from pygame.font import Font
-
 from code.Const import C_YELLOW, SCORE_POS, MENU_OPTION, C_WHITE
 from code.DBProxy import DBProxy
 
