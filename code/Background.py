@@ -10,7 +10,6 @@ class Background(Entity):
         self.surf = pygame.transform.scale(self.surf, (WIN_WIDTH, WIN_HEIGHT))
 
     def move(self):
-        """Move o background para baixo e reposiciona no topo quando necessário."""
         self.rect.centery += 7  # Velocidade do movimento
 
         # Reposicionar no topo ao sair da tela
@@ -18,5 +17,4 @@ class Background(Entity):
             self.reset_position()
 
     def reset_position(self):
-        """Reposiciona o background no topo."""
         self.rect.bottom = 0

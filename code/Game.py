@@ -20,7 +20,6 @@ class Game:
                 level = Level(self.window, 'Level', menu_return, score)
                 level_return = level.run()
 
-                # Se retornar 'MENU' após a colisão, recarrega o Menu
                 if level_return == 'MENU':
                     continue
 

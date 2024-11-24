@@ -7,12 +7,13 @@ from code.Const import WIN_WIDTH, C_ORANGE, MENU_OPTION, C_WHITE
 class Menu:
     def __init__(self, window):
         self.window = window
-        self.surf = pygame.image.load('./asset/MenuBg.png')
+        self.surf = pygame.image.load('./asset/MenuBg.png').convert_alpha()
         self.rect = self.surf.get_rect(left=0, top=0)
+        self.menu_music = './asset/MenuMusic.wav'
 
     def run(self):
         menu_option = 0
-        pygame.mixer_music.load('./asset/MenuMusic.wav')
+        pygame.mixer_music.load(self.menu_music)
         pygame.mixer_music.set_volume(0.7)  # Reduz o volume da música
         pygame.mixer_music.play(-1)
         while True:
@@ -22,9 +23,9 @@ class Menu:
 
             for i in range(len(MENU_OPTION)):
                 if i == menu_option:
-                    self.menu_text(25, MENU_OPTION[i], C_WHITE, ((WIN_WIDTH / 2), 230 + 30 * i))
+                    self.menu_text(25, MENU_OPTION[i], C_WHITE, ((WIN_WIDTH / 2), 230 + 40 * i))
                 else:
-                    self.menu_text(25, MENU_OPTION[i], C_ORANGE, ((WIN_WIDTH / 2), 230 + 30 * i))
+                    self.menu_text(25, MENU_OPTION[i], C_ORANGE, ((WIN_WIDTH / 2), 230 + 40 * i))
             pygame.display.flip()
 
             # Checa todos os eventos
@@ -47,7 +48,7 @@ class Menu:
                         return MENU_OPTION[menu_option]
 
     def menu_text(self, text_size: int, text: str, text_color: tuple, text_center_pos: tuple):
-        text_font: Font = pygame.font.SysFont(name="Lucida Sans Typewriter", size=text_size)
+        text_font: Font = pygame.font.SysFont(name="Gill Sans", size=text_size, bold=True)
         text_surf: Surface = text_font.render(text, True, text_color).convert_alpha()
         text_rect: Rect = text_surf.get_rect(center=text_center_pos)
         self.window.blit(source=text_surf, dest=text_rect)

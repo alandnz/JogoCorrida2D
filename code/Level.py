@@ -1,5 +1,5 @@
-import pygame
 import random
+import pygame
 from code.Const import WIN_WIDTH, WIN_HEIGHT, C_WHITE, SCORE_MAX
 from code.EntityFactory import EntityFactory
 
@@ -16,7 +16,7 @@ class Level:
         self.obstacle_speed = 7
         self.score = 0
         self.font = pygame.font.Font(None, 36)
-        self.score_menu = score_menu  # Menu de Score
+        self.score_menu = score_menu
 
     @staticmethod
     def load_obstacles():
@@ -56,9 +56,13 @@ class Level:
                 self.score += 1
 
     def detect_collisions(self):
+        player_hitbox = self.player.rect.inflate(-15,
+                                                 -20)  # Hitbox para ajuste do jogador - Reduz tamanho horizontal e vertical
         for obstacle in self.obstacles:
-            if self.player.rect.colliderect(obstacle.rect):
-                # Verifica o carro selecionado e carrega a imagem correspondente
+            obstacle_hitbox = obstacle.rect.inflate(-10,
+                                                    -15)  # Hitbox para ajuste do obstáculo - Reduz tamanho horizontal e vertical
+            if player_hitbox.colliderect(obstacle_hitbox):
+                # Verifica o carro selecionado e carrega a imagem de dano correspondente
                 if self.menu_return == "SINGLE PLAYER - RED":
                     damaged_image = pygame.image.load('./asset/CarRedDam.png').convert_alpha()
                 else:
@@ -78,7 +82,6 @@ class Level:
                 you_lose_image = pygame.image.load('./asset/YouLose.png').convert_alpha()
                 you_lose_image = pygame.transform.scale(you_lose_image, (WIN_WIDTH / 2, WIN_HEIGHT / 4))
 
-                # Desenha a imagem "YouLose.png" na tela
                 self.window.blit(you_lose_image, (128, 64))
                 pygame.display.flip()
 
@@ -112,10 +115,9 @@ class Level:
                 you_win_image = pygame.image.load('./asset/YouWin.png').convert_alpha()
                 you_win_image = pygame.transform.scale(you_win_image, (WIN_WIDTH / 2, WIN_HEIGHT / 4))
 
-                # Desenha a imagem "YouWin.png" na tela
                 self.window.blit(you_win_image, (128, 64))
                 pygame.display.flip()
-                
+
                 pygame.time.wait(2000)
 
                 self.score_menu.save_score(self.score)
