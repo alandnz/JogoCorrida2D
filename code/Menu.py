@@ -20,6 +20,7 @@ class Menu:
             self.window.blit(source=self.surf, dest=self.rect)
             self.menu_text(50, "Savanna", C_ORANGE, ((WIN_WIDTH / 2), 70))
             self.menu_text(50, "Racing", C_ORANGE, ((WIN_WIDTH / 2), 120))
+            self.menu_text(20, "Desenvolvido por: Alan Diniz Salazar - RU: 4499264", C_WHITE, ((WIN_WIDTH / 2), 495))
 
             for i in range(len(MENU_OPTION)):
                 if i == menu_option:
